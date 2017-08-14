@@ -5,7 +5,7 @@
  * A dynamic, browser-based visualization library.
  *
  * @version 4.20.1
- * @date    2017-08-13
+ * @date    2017-08-14
  *
  * @license
  * Copyright (C) 2011-2017 Almende B.V, http://almende.com
@@ -19414,12 +19414,14 @@ return /******/ (function(modules) { // webpackBootstrap
     // create event listeners for all interesting events, these events will be
     // emitted via emitter
     this.hammer = new Hammer(this.dom.root);
-    var pinchRecognizer = this.hammer.get('pinch').set({ enable: true });
+    // var pinchRecognizer = this.hammer.get('pinch').set({enable: true});
     //hammerUtil.disablePreventDefaultVertically(pinchRecognizer);
     this.hammer.get('pan').set({ threshold: 5, direction: Hammer.DIRECTION_HORIZONTAL });
     this.listeners = {};
 
-    var events = ['tap', 'doubletap', 'press', 'pinch', 'pan', 'panstart', 'panmove', 'panend'
+    var events = ['tap', 'doubletap', 'press',
+    // 'pinch',
+    'pan', 'panstart', 'panmove', 'panend'
     // TODO: cleanup
     //'touch', 'pinch',
     //'tap', 'doubletap', 'hold',
