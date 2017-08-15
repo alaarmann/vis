@@ -20808,16 +20808,16 @@ return /******/ (function(modules) { // webpackBootstrap
     // add item on doubletap
     this.hammer.on('doubletap', this._onAddItem.bind(this));
 
-    if (this.options.rtl) {
-      this.groupHammer = new Hammer(this.body.dom.rightContainer);
-    } else {
-      this.groupHammer = new Hammer(this.body.dom.leftContainer);
-    }
-
-    this.groupHammer.on('tap', this._onGroupClick.bind(this));
-    this.groupHammer.on('panstart', this._onGroupDragStart.bind(this));
-    this.groupHammer.on('panmove', this._onGroupDrag.bind(this));
-    this.groupHammer.on('panend', this._onGroupDragEnd.bind(this));
+    // if (this.options.rtl) {
+    //   this.groupHammer = new Hammer(this.body.dom.rightContainer);
+    // } else {
+    //   this.groupHammer = new Hammer(this.body.dom.leftContainer);
+    // }
+    //
+    // this.groupHammer.on('tap',      this._onGroupClick.bind(this));
+    // this.groupHammer.on('panstart', this._onGroupDragStart.bind(this));
+    // this.groupHammer.on('panmove',  this._onGroupDrag.bind(this));
+    // this.groupHammer.on('panend',   this._onGroupDragEnd.bind(this));
     //this.groupHammer.get('pan').set({threshold:5, direction: Hammer.DIRECTION_VERTICAL});
 
     this.body.dom.centerContainer.addEventListener('mouseover', this._onMouseOver.bind(this));
