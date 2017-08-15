@@ -22232,6 +22232,7 @@ return /******/ (function(modules) { // webpackBootstrap
         });
       }
     }
+    event.stopPropagation();
   };
 
   ItemSet.prototype._onGroupDrag = function (event) {
@@ -22392,6 +22393,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
       me.body.emitter.emit('groupDragged', { groupId: id });
     }
+    event.stopPropagation();
   };
 
   /**
