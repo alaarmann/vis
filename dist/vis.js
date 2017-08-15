@@ -22331,6 +22331,7 @@ return /******/ (function(modules) { // webpackBootstrap
         }
       }
     }
+    event.stopPropagation();
   };
 
   ItemSet.prototype._onGroupDragEnd = function (event) {
