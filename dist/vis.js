@@ -20206,10 +20206,10 @@ return /******/ (function(modules) { // webpackBootstrap
     }
 
     // enable/disable vertical panning
-    // var contentsOverflow = props.center.height > props.centerContainer.height;
-    // this.hammer.get('pan').set({
-    //   direction: contentsOverflow ? Hammer.DIRECTION_ALL : Hammer.DIRECTION_HORIZONTAL
-    // });
+    var contentsOverflow = props.center.height > props.centerContainer.height;
+    this.hammer.get('pan').set({
+      direction: contentsOverflow ? Hammer.DIRECTION_ALL : Hammer.DIRECTION_HORIZONTAL
+    });
 
     // redraw all components
     this.components.forEach(function (component) {
@@ -20457,6 +20457,16 @@ return /******/ (function(modules) { // webpackBootstrap
     this.touch.allowDragging = false;
   };
 
+  var hasAncestor = function hasAncestor(node, ancestor) {
+    do {
+      if (node === ancestor) {
+        return true;
+      }
+    } while (node = node.parentNode);
+
+    return false;
+  };
+
   /**
    * Move the timeline vertically
    * @param {Event} event
@@ -20467,6 +20477,14 @@ return /******/ (function(modules) { // webpackBootstrap
     // refuse to drag when we where pinching to prevent the timeline make a jump
     // when releasing the fingers in opposite order from the touch screen
     if (!this.touch.allowDragging) return;
+
+    console.log('in _onDrag:', event);
+    if (hasAncestor(event.target, this.dom.leftContainer)) {
+      console.log('event has target in leftContainer');
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
 
     var delta = event.deltaY;
 
@@ -20808,17 +20826,17 @@ return /******/ (function(modules) { // webpackBootstrap
     // add item on doubletap
     this.hammer.on('doubletap', this._onAddItem.bind(this));
 
-    // if (this.options.rtl) {
-    //   this.groupHammer = new Hammer(this.body.dom.rightContainer);
-    // } else {
-    //   this.groupHammer = new Hammer(this.body.dom.leftContainer);
-    // }
-    //
-    // this.groupHammer.on('tap',      this._onGroupClick.bind(this));
-    // this.groupHammer.on('panstart', this._onGroupDragStart.bind(this));
-    // this.groupHammer.on('panmove',  this._onGroupDrag.bind(this));
-    // this.groupHammer.on('panend',   this._onGroupDragEnd.bind(this));
-    //this.groupHammer.get('pan').set({threshold:5, direction: Hammer.DIRECTION_VERTICAL});
+    if (this.options.rtl) {
+      this.groupHammer = new Hammer(this.body.dom.rightContainer);
+    } else {
+      this.groupHammer = new Hammer(this.body.dom.leftContainer);
+    }
+
+    this.groupHammer.on('tap', this._onGroupClick.bind(this));
+    this.groupHammer.on('panstart', this._onGroupDragStart.bind(this));
+    this.groupHammer.on('panmove', this._onGroupDrag.bind(this));
+    this.groupHammer.on('panend', this._onGroupDragEnd.bind(this));
+    this.groupHammer.get('pan').set({ threshold: 5, direction: Hammer.DIRECTION_VERTICAL });
 
     this.body.dom.centerContainer.addEventListener('mouseover', this._onMouseOver.bind(this));
     this.body.dom.centerContainer.addEventListener('mouseout', this._onMouseOut.bind(this));
